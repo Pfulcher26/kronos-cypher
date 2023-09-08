@@ -23,5 +23,8 @@ class WikipediaSpider(scrapy.Spider):
         # Combine text content into a single string
         combined_text = " ".join(text_content)
 
-    # Process the combined text with spaCy
-    doc = nlp(combined_text)
+        # Process the combined text with spaCy
+        doc = nlp(combined_text)
+
+        # Extract recognized entities
+        recognized_entities = [entity.text for entity in doc.ents if entity.label_ == "GPE"]
