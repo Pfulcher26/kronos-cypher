@@ -22,3 +22,6 @@ class WikipediaSpider(scrapy.Spider):
         text_content = response.xpath('//a[contains(@href, "/wiki/")]/text()').extract()
         # Combine text content into a single string
         combined_text = " ".join(text_content)
+
+    # Process the combined text with spaCy
+    doc = nlp(combined_text)
