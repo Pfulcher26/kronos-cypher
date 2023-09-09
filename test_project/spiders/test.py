@@ -62,6 +62,27 @@ class WikipediaSpider(scrapy.Spider):
             noun = random.choice(nouns) if nouns else "dreams"
             adjective = random.choice(adjectives) if adjectives else "endless"
             enigmatic_word = random.choice(enigmatic_words)
+
+             # Alternate between four different lines
+            if i % 4 == 0:
+                line = f"{phrase}"
+            elif i % 4 == 1:
+                line = f"{adjective} {enigmatic_word} {noun} within"
+            elif i % 4 == 2:
+                line = f"the {noun}"
+            else:
+                line = f"{phrase}"
+            
+            poem.append(line)
+
+        final_poem = "\n".join(poem)
+
+        # Save the poem content to a file within a folder named "countries"
+        folder_name = "countries"
+        os.makedirs(folder_name, exist_ok=True)
+        filename = os.path.join(folder_name, f"{country_title}_poem.txt")
+        with open(filename, "w", encoding="utf-8") as file:
+            file.write(final_poem)
             
 
 
