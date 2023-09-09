@@ -35,3 +35,11 @@ class WikipediaSpider(scrapy.Spider):
         for country_name in country_names:
             country_url = f"https://en.wikipedia.org/wiki/{country_name.replace(' ', '_')}"
             yield scrapy.Request(url=country_url, callback=self.parse_country, cb_kwargs={'country_name': country_name})
+
+    def parse_country(self, response, country_name):
+        # Extract the title of the country's Wikipedia article
+        country_title = country_name  
+
+        # Extract the main text content of the article
+        text_content = " ".join(response.css('div#mw-content-text p::text').getall())
+
