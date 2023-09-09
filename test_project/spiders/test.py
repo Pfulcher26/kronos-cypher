@@ -46,3 +46,6 @@ class WikipediaSpider(scrapy.Spider):
         # Extract nouns and adjectives from the input text
         nouns, adjectives = self.extract_nouns_adjectives(text_content)
 
+        # Extract enigmatic words from the poem
+        enigmatic_words = [word for line in INPUT_TEXT.split('\n') for word in line.split() if word.isalpha() and len(word) > 4]
+
