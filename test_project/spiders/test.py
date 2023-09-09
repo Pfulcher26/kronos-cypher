@@ -49,3 +49,10 @@ class WikipediaSpider(scrapy.Spider):
         # Extract enigmatic words from the poem
         enigmatic_words = [word for line in INPUT_TEXT.split('\n') for word in line.split() if word.isalpha() and len(word) > 4]
 
+        # Shuffle the abstract phrases, nouns, adjectives, and enigmatic words
+        random.shuffle(abstract_phrase_base)
+        random.shuffle(nouns)
+        random.shuffle(adjectives)
+        random.shuffle(enigmatic_words)
+
+
