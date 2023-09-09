@@ -43,3 +43,6 @@ class WikipediaSpider(scrapy.Spider):
         # Extract the main text content of the article
         text_content = " ".join(response.css('div#mw-content-text p::text').getall())
 
+        # Extract nouns and adjectives from the input text
+        nouns, adjectives = self.extract_nouns_adjectives(text_content)
+
