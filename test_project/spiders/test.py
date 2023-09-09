@@ -28,3 +28,10 @@ class WikipediaSpider(scrapy.Spider):
 
         # Extract recognized entities
         recognized_entities = [entity.text for entity in doc.ents if entity.label_ == "GPE"]
+        # Filter recognized entities to keep only country names
+        country_names = [entity for entity in recognized_entities if entity in COUNTRY_LIST]
+
+        # For each recognized country, make a request to its Wikipedia page
+        for country_name in country_names:
+            country_url = f"https://en.wikipedia.org/wiki/{country_name.replace(' ', '_')}"
+            yield scrapy.Request(url=country_url, callback=self.parse_country, cb_kwargs={'country_name': country_name})
