@@ -38,7 +38,7 @@ class WikipediaSpider(scrapy.Spider):
 
     def parse_country(self, response, country_name):
         # Extract the title of the country's Wikipedia article
-        country_title = country_name  
+        country_title = country_name
 
         # Extract the main text content of the article
         text_content = " ".join(response.css('div#mw-content-text p::text').getall())
@@ -55,15 +55,15 @@ class WikipediaSpider(scrapy.Spider):
         random.shuffle(adjectives)
         random.shuffle(enigmatic_words)
 
-         # Create a fragmented and abstract poem with four different lines
+        # Create a fragmented and abstract poem with four different lines
         poem = []
         for i in range(5):
             phrase = random.choice(abstract_phrase_base)
             noun = random.choice(nouns) if nouns else "dreams"
             adjective = random.choice(adjectives) if adjectives else "endless"
             enigmatic_word = random.choice(enigmatic_words)
-
-             # Alternate between four different lines
+            
+            # Alternate between four different lines
             if i % 4 == 0:
                 line = f"{phrase}"
             elif i % 4 == 1:
@@ -83,6 +83,12 @@ class WikipediaSpider(scrapy.Spider):
         filename = os.path.join(folder_name, f"{country_title}_poem.txt")
         with open(filename, "w", encoding="utf-8") as file:
             file.write(final_poem)
-            
 
+        self.log(f"Saved {country_title} poem to {filename}")
 
+    # Extract nouns and adjectives from the input text
+    def extract_nouns_adjectives(self, text):
+        doc = nlp(text)
+        nouns = [token.text for token in doc if token.pos_ == "NOUN"]
+        adjectives = [token.text for token in doc if token.pos_ == "ADJ"]
+        return nouns, adjectives
