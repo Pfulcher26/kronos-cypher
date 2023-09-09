@@ -55,4 +55,13 @@ class WikipediaSpider(scrapy.Spider):
         random.shuffle(adjectives)
         random.shuffle(enigmatic_words)
 
+         # Create a fragmented and abstract poem with four different lines
+        poem = []
+        for i in range(5):
+            phrase = random.choice(abstract_phrase_base)
+            noun = random.choice(nouns) if nouns else "dreams"
+            adjective = random.choice(adjectives) if adjectives else "endless"
+            enigmatic_word = random.choice(enigmatic_words)
+            
+
 
